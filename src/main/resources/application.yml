@@ -1,6 +1,8 @@
 spring:
   application:
     name: tanzu-java-web-app
+  datasource: 
+    url: jdbc:mysql://mysql/webfleet
 management:
   endpoints:
     web:

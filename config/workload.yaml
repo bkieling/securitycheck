@@ -11,6 +11,12 @@ spec:
   - name: annotations
     value:
       autoscaling.knative.dev/minScale: "1"
+  serviceClaims:
+  - name: mysql
+    ref:
+      apiVersion: with.sql.tanzu.vmware.com/v1
+      kind: MySQL
+      name: mysql
   source:
     git:
       url: https://github.com/sample-accelerators/securitycheck
