@@ -19,6 +19,6 @@ spec:
       name: mysql
   source:
     git:
-      url: https://github.com/sample-accelerators/securitycheck
+      url: https://github.com/bkieling/securitycheck
       ref:
         branch: main
