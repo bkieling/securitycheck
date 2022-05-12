@@ -1,12 +1,14 @@
 spring:
   application:
     name: tanzu-java-web-app
-  datasource: 
-    url: jdbc:mysql://mysql/webfleet
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+  # datasource: 
+  #   url: jdbc:mysql://localhost:3306/webfleet
+  #   username: fleet_user
+  #   password: jebrDIJnJFVP9PC
+  # jpa:
+  #   properties:
+  #     hibernate:
+  #       dialect: org.hibernate.dialect.MySQL5Dialect
 database: mysql
 management:
   endpoints:
