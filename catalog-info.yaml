@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: securitycheck
-  description: Tanzu Java Web App
+  description: WeB fleet Security Check
   tags:
     - app-accelerator
     - java

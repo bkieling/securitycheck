@@ -1,15 +1,13 @@
 spring:
   application:
     name: tanzu-java-web-app
-  # datasource: 
-  #   url: jdbc:mysql://localhost:3306/webfleet
-  #   username: fleet_user
-  #   password: jebrDIJnJFVP9PC
-  # jpa:
-  #   properties:
-  #     hibernate:
-  #       dialect: org.hibernate.dialect.MySQL5Dialect
-database: mysql
+  datasource:
+    url: jdbc:hsqldb:mem:testdb
+  jpa:
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    cache: false
 management:
   endpoints:
     web:
@@ -18,3 +16,6 @@ management:
   endpoint:
     health:
       show-details: always
+
+web:
+  message: Welcome to WeB Fleet Security
