@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-@RabbitListener(queues = "rfa.uploaded")
+@RabbitListener(queues = {"rfa.uploaded"})
 public class RabbitMqMessageReceiver {
     Logger logger = LoggerFactory.getLogger(RabbitMqMessageReceiver.class);
 
@@ -13,4 +13,6 @@ public class RabbitMqMessageReceiver {
     public void receive(RfaUploadedEvent rfaUploadedEvent) {
         logger.info("Received RFA uploaded. Id = '" + rfaUploadedEvent.getId() + "'");
     }
+
+
 }
