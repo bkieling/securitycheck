@@ -1,6 +1,6 @@
 package com.example.springboot;
 
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -12,7 +12,12 @@ public class RabbitMqConfig {
 
     @Bean
     public Queue rfaUploadedQueue() {
-        return new Queue("rfa.uploaded");
+        return new AnonymousQueue();
+    }
+
+    @Bean
+    public FanoutExchange fanout() {
+        return new FanoutExchange("rfa.fanout");
     }
 
     @Bean
@@ -25,6 +30,11 @@ public class RabbitMqConfig {
     @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
+    public Binding binding(FanoutExchange fanout, Queue rfaUploadedQueue) {
+        return BindingBuilder.bind(rfaUploadedQueue).to(fanout);
     }
 
 }
