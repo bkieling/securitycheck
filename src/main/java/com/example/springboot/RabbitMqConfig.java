@@ -12,13 +12,13 @@ public class RabbitMqConfig {
 
     @Bean
     public Queue rfaUploadedQueue() {
-        return new AnonymousQueue();
+        return new Queue("rfa.uploaded");
     }
 
-    @Bean
-    public FanoutExchange fanout() {
-        return new FanoutExchange("rfa.fanout");
-    }
+//    @Bean
+//    public FanoutExchange fanout() {
+//        return new FanoutExchange("rfa.fanout");
+//    }
 
     @Bean
     public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
@@ -32,9 +32,9 @@ public class RabbitMqConfig {
         return new Jackson2JsonMessageConverter();
     }
 
-    @Bean
-    public Binding binding(FanoutExchange fanout, Queue rfaUploadedQueue) {
-        return BindingBuilder.bind(rfaUploadedQueue).to(fanout);
-    }
+//    @Bean
+//    public Binding binding(FanoutExchange fanout, Queue rfaUploadedQueue) {
+//        return BindingBuilder.bind(rfaUploadedQueue).to(fanout);
+//    }
 
 }
