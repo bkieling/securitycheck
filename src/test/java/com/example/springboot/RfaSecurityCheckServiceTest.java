@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class RfaSecurityCheckServiceTest {
@@ -19,25 +20,25 @@ public class RfaSecurityCheckServiceTest {
     private RfaProvider rfaProvider;
 
     @Test
-    void getRfaContentByIdTest() throws RfaNotFoundException {
+    void shouldReturnRfaNullContentSafe() {
         Long id = 1L;
-        String rfaContent = "Hello World";
-        Mockito.when(rfaProvider.getRfaContentByID(id)).thenReturn(rfaContent);
-        String content = rfaSecurityCheckService.getRfaContentById(id);
-
-        assertEquals(rfaContent, content);
+        assertTrue(rfaSecurityCheckService.isRfaContentSafe(id));
     }
 
     @Test
-    void getRfaContentByIdTest_NotFound() {
-        Long id = 2L;
-        Assertions.assertThrows(RfaNotFoundException.class, () -> rfaSecurityCheckService.getRfaContentById(id));
+    void shouldReturnRfaContentSafe() throws RfaNotFoundException {
+        Long id = 1L;
+        String content = "Content is clean";
+        when(rfaProvider.getRfaContentById(id)).thenReturn(content);
+        assertTrue(rfaSecurityCheckService.isRfaContentSafe(id));
     }
 
     @Test
-    void getRfaContentByIdTest_IdIsNull() {
-        Long id = null;
-        Assertions.assertThrows(IllegalArgumentException.class, () -> rfaSecurityCheckService.getRfaContentById(id));
+    void shouldReturnRfaContentIsUnsafe() throws RfaNotFoundException {
+        Long id = 1L;
+        String content = "virus";
+        when(rfaProvider.getRfaContentById(id)).thenReturn(content);
+        assertFalse(rfaSecurityCheckService.isRfaContentSafe(id));
     }
 
 }

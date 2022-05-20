@@ -19,7 +19,7 @@ public class RabbitMqMessageReceiver {
     public void receive(RfaUploadedEvent rfaUploadedEvent) {
         Long id = rfaUploadedEvent.getId();
         logger.info("Received RFA uploaded. Id = '" + id + "'");
-        rfaSecurityCheckService.getRfaContentById(id);
+        rfaSecurityCheckService.checkRfaContent(id);
     }
 
 }

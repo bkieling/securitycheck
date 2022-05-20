@@ -6,8 +6,13 @@ import org.springframework.stereotype.Component;
 public class RfaProviderImpl implements RfaProvider {
 
     @Override
-    public String getRfaContentByID(Long ID) {
-        return null;
+    public String getRfaContentById(Long id) throws RfaNotFoundException {
+        if (id == null)
+            throw new IllegalArgumentException("RFA id invalid (must be not null)");
+        if (id == 1L) {
+            return "Hello World";
+        }
+        throw new RfaNotFoundException("Rfa with ID " + id + " not found.");
     }
 
 }
