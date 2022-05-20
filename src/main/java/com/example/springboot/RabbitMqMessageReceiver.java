@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class RabbitMqMessageReceiver {
     Logger logger = LoggerFactory.getLogger(RabbitMqMessageReceiver.class);
 
-    @RabbitListener(queues = "#{rfaUploadedQueue.name}")
+    @RabbitListener(queues = "rfa.uploaded")
     public void receive(RfaUploadedEvent rfaUploadedEvent) {
         logger.info("Received RFA uploaded. Id = '" + rfaUploadedEvent.getId() + "'");
     }
