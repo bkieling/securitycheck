@@ -17,7 +17,13 @@ public class RfaSecurityCheckService {
 
     public void checkRfaContent(Long id) {
         try {
-            isRfaContentSafe(id);
+            boolean contentSafe = isRfaContentSafe(id);
+
+            if (contentSafe) {
+                logger.info("RFA with id {} is secure", id);
+            } else {
+                logger.warn("RFA with id {} is NOT secure", id);
+            }
             // true, then send RFA virus checked
             // false, then do nothing for now
         } catch (RfaNotFoundException e) {

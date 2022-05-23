@@ -17,5 +17,17 @@ management:
     health:
       show-details: always
 
+
+service-maintenance:
+  base-url: "http://service-maintenance"
+
 web:
   message: Welcome to WeB Fleet Security
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "local"
+service-maintenance:
+  base-url: "http://localhost:8081"
