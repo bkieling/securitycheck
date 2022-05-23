@@ -2,38 +2,38 @@ package com.example.springboot;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RfaSecurityCheckService {
 
-    private Logger logger = LoggerFactory.getLogger(RfaSecurityCheckService.class);
+    private final Logger logger = LoggerFactory.getLogger(RfaSecurityCheckService.class);
 
-    private RfaProvider rfaProvider;
+    private final RfaProvider rfaProvider;
 
     public RfaSecurityCheckService(RfaProvider rfaProvider) {
         this.rfaProvider = rfaProvider;
     }
 
     public void checkRfaContent(Long id) {
-        isRfaContentSafe(id);
+        try {
+            isRfaContentSafe(id);
+            // true, then send RFA virus checked
+            // false, then do nothing for now
+        } catch (RfaNotFoundException e) {
+            logger.warn("RFA with id {} not found. Could not check for virus.", id, e);
+        }
     }
 
-    public boolean isRfaContentSafe(Long id) {
+    public boolean isRfaContentSafe(Long id) throws RfaNotFoundException {
         String content = getRfaContentById(id);
         return !"virus".equals(content);
     }
 
-    private String getRfaContentById(Long id) {
+    private String getRfaContentById(Long id) throws RfaNotFoundException {
         if (id == null)
             throw new IllegalArgumentException("RFA id invalid (must be not null)");
-        try {
-            return rfaProvider.getRfaContentById(id);
-        } catch (RfaNotFoundException e) {
-
-        }
-        return "";
+        return rfaProvider.getRfaContentById(id);
     }
 
 }

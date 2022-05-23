@@ -1,9 +1,6 @@
 package com.example.springboot;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,7 +17,7 @@ public class RfaSecurityCheckServiceTest {
     private RfaProvider rfaProvider;
 
     @Test
-    void shouldReturnRfaNullContentSafe() {
+    void shouldReturnRfaNullContentSafe() throws RfaNotFoundException {
         Long id = 1L;
         assertTrue(rfaSecurityCheckService.isRfaContentSafe(id));
     }
@@ -39,6 +36,13 @@ public class RfaSecurityCheckServiceTest {
         String content = "virus";
         when(rfaProvider.getRfaContentById(id)).thenReturn(content);
         assertFalse(rfaSecurityCheckService.isRfaContentSafe(id));
+    }
+
+    @Test
+    void shouldThrowNotFoundExceptionWhenRfaNotFound() throws RfaNotFoundException {
+        Long id = 2L;
+        when(rfaProvider.getRfaContentById(id)).thenThrow(new RfaNotFoundException("Rfa not found"));
+        assertThrows(RfaNotFoundException.class, () -> rfaSecurityCheckService.isRfaContentSafe(id));
     }
 
 }
