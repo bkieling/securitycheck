@@ -23,4 +23,4 @@ k8s_resource('securitycheck', port_forwards=["8080:8080"],
 
 allow_k8s_contexts('gke_web-practice-fleet_europe-west4_tap')
 
-update_settings ( max_parallel_updates = 3 , k8s_upsert_timeout_secs = 120 , suppress_unused_image_warnings = None )
+update_settings ( max_parallel_updates = 3 , k8s_upsert_timeout_secs = 180 , suppress_unused_image_warnings = None )
