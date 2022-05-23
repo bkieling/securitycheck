@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class RabbitMqMessageReceiver {
     Logger logger = LoggerFactory.getLogger(RabbitMqMessageReceiver.class);
 
-    private RfaSecurityCheckService rfaSecurityCheckService;
+    private final RfaSecurityCheckService rfaSecurityCheckService;
 
     public RabbitMqMessageReceiver(RfaSecurityCheckService rfaSecurityCheckService) {
         this.rfaSecurityCheckService = rfaSecurityCheckService;
@@ -18,7 +18,7 @@ public class RabbitMqMessageReceiver {
     @RabbitListener(queues = "rfa.uploaded")
     public void receive(RfaUploadedEvent rfaUploadedEvent) {
         Long id = rfaUploadedEvent.getId();
-        logger.info("Received RFA uploaded. Id = '" + id + "'");
+        logger.info("Received RFA uploaded event. Id = '" + id + "'");
         rfaSecurityCheckService.checkRfaContent(id);
     }
 

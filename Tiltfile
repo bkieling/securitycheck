@@ -22,3 +22,5 @@ k8s_resource('securitycheck', port_forwards=["8080:8080"],
             extra_pod_selectors=[{'serving.knative.dev/service': 'securitycheck'}])
 
 allow_k8s_contexts('gke_web-practice-fleet_europe-west4_tap')
+
+update_settings ( max_parallel_updates = 3 , k8s_upsert_timeout_secs = 120 , suppress_unused_image_warnings = None )
