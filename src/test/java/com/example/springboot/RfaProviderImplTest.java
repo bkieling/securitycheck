@@ -1,25 +1,19 @@
 package com.example.springboot;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWireMock(port = 0)
-@TestPropertySource(properties = {
-        "service-maintenance.base-url = http://localhost:${wiremock.server.port}"
-})
 @ActiveProfiles("local")
+@AutoConfigureStubRunner(ids = {"com.example:service-maintenance:+:stubs:8081"}, stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 public class RfaProviderImplTest {
 
     @Autowired
@@ -27,32 +21,18 @@ public class RfaProviderImplTest {
 
     //private Long rfaIdUnderTest;
 
-    void setupWireMock(Long id) throws JsonProcessingException {
-        RfaDto rfaDto = new RfaDto();
-        rfaDto.setId(id);
-        rfaDto.setContent("Hello World");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String content = objectMapper.writeValueAsString(rfaDto);
-        WireMock.stubFor(WireMock.get(WireMock.urlEqualTo("/rfa/" + id))
-                .willReturn(aResponse()
-                        .withHeader("Content-Type", "application/json")
-                        .withBody(content)));
-    }
-
     @Test
-    void getRfaContentByIdTest() throws RfaNotFoundException, JsonProcessingException {
+    void getRfaContentByIdTest() throws RfaNotFoundException {
         Long id = 1L;
-        String rfaContent = "Hello World";
-        setupWireMock(id);
+        String rfaContent = "Test 1";
 
         String content = rfaProviderImpl.getRfaContentById(id);
         assertEquals(rfaContent, content);
     }
 
     @Test
-    void getRfaContentByIdTest_NotFound() throws JsonProcessingException {
+    void getRfaContentByIdTest_NotFound() {
         Long id = 2L;
-        setupWireMock(1L);
         Assertions.assertThrows(RfaNotFoundException.class, () -> rfaProviderImpl.getRfaContentById(id));
     }
 
