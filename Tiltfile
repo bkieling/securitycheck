@@ -1,4 +1,4 @@
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='fcaroline/securitycheck-source')
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='web-practice-fleet/securitycheck-source')
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
 NAMESPACE = os.getenv("NAMESPACE", default='webfleet')
 
