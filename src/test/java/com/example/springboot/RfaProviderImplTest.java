@@ -2,6 +2,7 @@ package com.example.springboot;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("local")
 @AutoConfigureStubRunner(ids = {"com.example:service-maintenance:+:stubs:8081"}, stubsMode = StubRunnerProperties.StubsMode.LOCAL)
+@Disabled
 public class RfaProviderImplTest {
 
     @Autowired
