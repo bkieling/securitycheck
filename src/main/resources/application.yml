@@ -1,25 +1,11 @@
 spring:
   application:
     name: securitycheck
-  datasource:
-    url: jdbc:hsqldb:mem:testdb
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
   thymeleaf:
     cache: false
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"  
-  endpoint:
-    health:
-      show-details: always
-
 
 service-maintenance:
   base-url: "http://service-maintenance.webfleet"
@@ -32,5 +18,9 @@ spring:
   config:
     activate:
       on-profile: "local"
+  datasource:
+    url: jdbc:hsqldb:mem:testdb
+
 service-maintenance:
   base-url: "http://localhost:8081"
+
