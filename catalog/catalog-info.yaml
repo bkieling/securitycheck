@@ -3,12 +3,6 @@ kind: Component
 metadata:
   name: securitycheck
   description: WeB fleet Security Check
-  tags:
-    - app-accelerator
-    - java
-    - spring
-    - web
-    - tanzu
   annotations:
     'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=securitycheck'
 spec:
