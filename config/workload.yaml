@@ -8,6 +8,10 @@ metadata:
     apps.tanzu.vmware.com/has-tests: true
     apps.tanzu.vmware.com/test-label: foo
 spec:
+  build:
+    env:
+      - name: BP_JVM_VERSION
+        value: "17"
   params:
   - name: annotations
     value:
