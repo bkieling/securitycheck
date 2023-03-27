@@ -27,7 +27,7 @@ public class RfaProviderImpl implements RfaProvider {
             throw new IllegalArgumentException("RFA id invalid (must be not null)");
 
         String url = serviceMaintenanceUrl + "/rfa/" + id;
-        logger.debug("Trying to get RFA from Service Maintenance {}", url);
+        logger.debug("Trying to get RFA from Service Maintenance {}...", url);
         try {
             RfaDto response = restTemplate.getForObject(serviceMaintenanceUrl + "/rfa/" + id, RfaDto.class);
 
