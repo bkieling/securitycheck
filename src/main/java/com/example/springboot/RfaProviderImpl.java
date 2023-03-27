@@ -35,7 +35,7 @@ public class RfaProviderImpl implements RfaProvider {
                 return response.getContent();
             }
         } catch (HttpClientErrorException.NotFound e) {
-            throw new RfaNotFoundException("Rfa with ID " + id + " not found.");
+            throw new RfaNotFoundException("Rfa with ID '" + id + "' not found.");
         }
 
         return "";
