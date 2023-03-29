@@ -11,7 +11,7 @@ service-maintenance:
   base-url: "http://service-maintenance.webfleet"
 
 web:
-  message: Welcome to WeB Fleet Security V1
+  message: Welcome to WeB Fleet Security V2
 
 ---
 spring:
